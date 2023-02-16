@@ -12,3 +12,5 @@ class Food(models.Model):
     comment = models.CharField(max_length=50, blank=True) # blank允許欄位為空
     is_spicy = models.BooleanField(default=False) 
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+
+# 詳細資料庫CRUD操作參考 https://ithelp.ithome.com.tw/articles/10212427

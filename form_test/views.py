@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django import template
 from django.template.loader import get_template
 from django.shortcuts import render
+from form_test.models import Restaurant, Food
 
 def here(request):
     return HttpResponse('Mom, I am here!')
@@ -32,3 +33,7 @@ def menu(request):
     food2 = {'name': '蒜泥白肉', 'price': 100, 'comment': '人氣推薦', 'is_spicy': True}
     foods = [food1, food2]
     return render(request, 'menu.html', locals())
+
+def menu_db(request):
+    restaurants = Restaurant.objects.all()
+    return render(request,'menu_db.html', locals())
