@@ -35,5 +35,5 @@ def menu(request):
     return render(request, 'menu.html', locals())
 
 def menu_db(request):
-    restaurants = Restaurant.objects.all()
+    restaurants = Restaurant.objects.get(id=1)
     return render(request,'menu_db.html', locals())
