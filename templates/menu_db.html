@@ -1,18 +1,32 @@
 <!doctype html>
 <html>
-    <head>
-        <title> Menu </title>
-        <meta charset='UTF-8'>
-        <style>
-            table, th, td{
-                border: 1px solid black;
-            }
-        </style>
-    </head>
-    <body>
+
+<head>
+    <title> Menu </title>
+    <meta charset='UTF-8'>
+    <style>
+        table,
+        th,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <p>您現在的位置在{{ path }}</p>
+    <table>
+        <tr>
+            <th>店名</th>
+            <th>電話</th>
+            <th>地址</th>
+        </tr>
         {% for r in restaurants %}
-            <h2>{{ r.name }}</h2>
-            {% if r.food_set.all %}
+        <tr>
+            <td>{{ r.name }}</td>
+            <td>{{ r.phone_number }}</td>
+            <td>{{ r.address }}</td>
+            <!-- {% if r.food_set.all %}
                 <p>本餐廳共有{{ r.food_set.all|length }}道菜</p>
                 <table>
                     <tr>
@@ -32,7 +46,10 @@
                 </table>
             {% else %}
                 <p>本餐廳啥都沒賣</p>
-            {% endif %}
+            {% endif %} -->
+        </tr>
         {% endfor %}
-    </body>
+    </table>
+</body>
+
 </html>

@@ -35,5 +35,24 @@ def menu(request):
     return render(request, 'menu.html', locals())
 
 def menu_db(request):
-    restaurants = Restaurant.objects.get(id=1)
+    path = request.path
+    # restaurants = Restaurant.objects.get(id=1)
+    restaurants = Restaurant.objects.all()
     return render(request,'menu_db.html', locals())
+
+def meta(request): # request包的資訊
+    values = request.META.items()
+    html = []
+    for k, v in values:
+        html.append('<tr><td>{0}</td><td>{1}</td></tr>'.format(k, v))
+    return HttpResponse('<table>{0}</table>'.format('\n'.join(html)))
+
+def welcome(request): # get test
+    if 'user_name' in request.GET and request.GET['user_name'] != '':
+        return HttpResponse('Welcome!~' + request.GET['user_name'])
+    else:
+        return render(request, 'welcome.html', locals())
+    
+def get_menu(request):
+    foods = Food.objects.all()
+    return render(request, 'get_menu.html', locals())
