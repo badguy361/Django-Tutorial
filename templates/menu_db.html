@@ -26,7 +26,10 @@
             </tr>
             {% for r in restaurants %}
             <tr>
+                <!-- 用get傳id資訊 -->
                 <td> <input type="radio" name="id" value="{{r.id}}"> </td>
+                <!-- 用a也可以 -->
+                <!-- <td> <a href="/get_menu/?id={{r.id}}"> menu </a></td>  -->
                 <td>{{ r.name }}</td>
                 <td>{{ r.phone_number }}</td>
                 <td>{{ r.address }}</td>
