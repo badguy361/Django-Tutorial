@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from form_test.views import here, add, menu, menu_db, meta, welcome, get_menu
+from form_test.views import here, add, menu, menu_db, meta, welcome, get_menu, comment
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -26,4 +26,6 @@ urlpatterns = [
     path('meta/', meta),
     path('welcome/', welcome),
     path('get_menu/', get_menu),
+    re_path(r'get_menu/(\d{1,5})', get_menu),
+    re_path(r'comment/(\d{1,5})', comment),
 ]

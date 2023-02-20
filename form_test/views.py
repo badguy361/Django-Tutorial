@@ -1,8 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django import template
 from django.template.loader import get_template
 from django.shortcuts import render
-from form_test.models import Restaurant, Food
+from form_test.models import Restaurant, Food, Comment
+from django.utils import timezone
 
 def here(request):
     return HttpResponse('Mom, I am here!')
@@ -53,6 +54,19 @@ def welcome(request): # get test
     else:
         return render(request, 'welcome.html', locals())
     
-def get_menu(request):
-    foods = Food.objects.get(id=request.GET['id'])
+def get_menu(request,id):
+    foods = Food.objects.get(id=id)
     return render(request, 'get_menu.html', locals())
+
+def comment(request, id):
+    if id:
+        r = Restaurant.objects.get(id=id)
+    else:
+        return HttpResponseRedirect("/get_menu/")
+    if request.POST:
+        visitor = request.POST['visitor']
+        content = request.POST['content']
+        email = request.POST['email']
+        date_time = timezone.localtime(timezone.now()) # 擷取現在時間
+        Comment.objects.create(visitor=visitor, email=email, content=content, date_time=date_time, restaurant=r)
+    return render(request, 'comments.html', locals())

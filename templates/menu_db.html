@@ -23,16 +23,23 @@
                 <th>店名</th>
                 <th>電話</th>
                 <th>地址</th>
+                <th>評價</th>
             </tr>
             {% for r in restaurants %}
             <tr>
                 <!-- 用get傳id資訊 -->
-                <td> <input type="radio" name="id" value="{{r.id}}"> </td>
+                <!-- <td> <input type="radio" name="id" value="{{r.id}}"> </td> -->
                 <!-- 用a也可以 -->
                 <!-- <td> <a href="/get_menu/?id={{r.id}}"> menu </a></td>  -->
+                <!-- 直接接在後面變成是URL的arg -->
+                <td> <a href="/get_menu/{{r.id}}"> menu </a></td> 
+
                 <td>{{ r.name }}</td>
                 <td>{{ r.phone_number }}</td>
                 <td>{{ r.address }}</td>
+                <td> <a href="/comment/{{r.id}}/"> comment </a> </td>
+
+
                 <!-- {% if r.food_set.all %}
                 <p>本餐廳共有{{ r.food_set.all|length }}道菜</p>
                 <table>
@@ -54,6 +61,9 @@
             {% else %}
                 <p>本餐廳啥都沒賣</p>
             {% endif %} -->
+
+
+
             </tr>
             {% endfor %}
         </table>

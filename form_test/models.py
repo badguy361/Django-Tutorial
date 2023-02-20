@@ -14,3 +14,10 @@ class Food(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
 
 # 詳細資料庫CRUD操作參考 https://ithelp.ithome.com.tw/articles/10212427
+
+class Comment(models.Model):
+    content = models.CharField(max_length=200)
+    visitor = models.CharField(max_length=20)
+    email = models.EmailField(max_length=20)
+    date_time = models.DateTimeField()
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
