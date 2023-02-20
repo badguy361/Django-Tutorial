@@ -14,19 +14,23 @@
 </head>
 
 <body>
-    <p>您現在的位置在{{ path }}</p>
-    <table>
-        <tr>
-            <th>店名</th>
-            <th>電話</th>
-            <th>地址</th>
-        </tr>
-        {% for r in restaurants %}
-        <tr>
-            <td>{{ r.name }}</td>
-            <td>{{ r.phone_number }}</td>
-            <td>{{ r.address }}</td>
-            <!-- {% if r.food_set.all %}
+    <h2>餐廳列表</h2>
+    <form action="/get_menu/" method="get">
+        <p>您現在的位置在{{ path }}</p>
+        <table>
+            <tr>
+                <th>選取</th>
+                <th>店名</th>
+                <th>電話</th>
+                <th>地址</th>
+            </tr>
+            {% for r in restaurants %}
+            <tr>
+                <td> <input type="radio" name="id" value="{{r.id}}"> </td>
+                <td>{{ r.name }}</td>
+                <td>{{ r.phone_number }}</td>
+                <td>{{ r.address }}</td>
+                <!-- {% if r.food_set.all %}
                 <p>本餐廳共有{{ r.food_set.all|length }}道菜</p>
                 <table>
                     <tr>
@@ -47,9 +51,11 @@
             {% else %}
                 <p>本餐廳啥都沒賣</p>
             {% endif %} -->
-        </tr>
-        {% endfor %}
-    </table>
+            </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="觀看menu">
+    </form>
 </body>
 
 </html>

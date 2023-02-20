@@ -54,5 +54,5 @@ def welcome(request): # get test
         return render(request, 'welcome.html', locals())
     
 def get_menu(request):
-    foods = Food.objects.all()
+    foods = Food.objects.get(id=request.GET['id'])
     return render(request, 'get_menu.html', locals())
