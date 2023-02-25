@@ -5,6 +5,7 @@ from django.shortcuts import render
 from form_test.models import Restaurant, Food, Comment
 from django.utils import timezone
 from form_test.forms import CommentForm
+from django.contrib import auth
 
 def here(request):
     return HttpResponse('Mom, I am here!')
@@ -83,3 +84,22 @@ def comment(request, id):
     f = CommentForm(initial={'content': '我沒意見'})
     
     return render(request, 'comments.html', locals())
+
+def login(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect('/index/')
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+    user = auth.authenticate(username=username, password=password)
+    if user is not None and user.is_active:
+        auth.login(request, user)
+        return HttpResponseRedirect('/index/')
+    else:
+        return render(request, 'registration/login.html', locals())
+    
+def logout(request):
+    auth.logout(request)
+    return HttpResponseRedirect('/index/')
+
+def index(request):
+    return render(request, 'registration/logged_out.html')

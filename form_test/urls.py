@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from form_test.views import here, add, menu, menu_db, meta, welcome, get_menu, comment
+from form_test.views import here, add, menu, menu_db, meta, welcome, get_menu, comment, index, login, logout
+from django.contrib.auth import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +29,15 @@ urlpatterns = [
     path('get_menu/', get_menu),
     re_path(r'get_menu/(\d{1,5})', get_menu),
     re_path(r'comment/(\d{1,5})', comment),
+
+    # 實作內建登入認證
+    path('index/', index),
+    path('login/', login), # Djaongo 內建的登入登出判定(語法是固定用法)
+    path('logout/', logout), # 要把login.html logged_out.html放到registration下
+
+    # Django內建的登入認證
+    path('accounts/login/', views.LoginView.as_view(), name='login'), # Djaongo 內建的登入登出判定(語法是固定用法)
+    path('accounts/logout/', views.LogoutView.as_view(), name='logout'), # 要把login.html logged_out.html放到registration下
+    path('accounts/profile/', index),
+    
 ]
