@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from form_test.views import here, add, menu, menu_db, meta, welcome, get_menu, comment, index, login, logout, list_restaurants
+from form_test.views import here, add, menu, menu_db, meta, welcome, get_menu, comment, index, login, logout, list_restaurants, register
 from django.contrib.auth import views
 from django .contrib.auth.decorators import login_required
 
@@ -41,5 +41,6 @@ urlpatterns = [
     path('accounts/logout/', views.LogoutView.as_view(), name='logout'), # 要把login.html logged_out.html放到registration下
     path('accounts/profile/', index),
     
-    path('restaurants_list/', login_required(list_restaurants)), # login_required擋掉沒登入的使用者用url直接進去
+    path('restaurants_list/', login_required(list_restaurants)), # login_required可以擋掉沒登入的使用者用url直接進去
+    path('accounts/register/', register),
 ]

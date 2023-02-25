@@ -21,3 +21,10 @@ class Comment(models.Model):
     email = models.EmailField(max_length=20)
     date_time = models.DateTimeField()
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
+
+    class Meta: # 新增權限 每一個權限都會跟一個資料庫模型綁定
+            ordering = ['date_time']
+            permissions = (
+                ("can_comment", "Can comment"),  # 只有一個權限時，千萬不要忘了逗號！
+                # 第一個元素是codename字串(實際運用在代碼中的權限名稱)，第二個元素是name字串(用戶名稱，通常只是拿來顯示，好閱讀的)
+            )

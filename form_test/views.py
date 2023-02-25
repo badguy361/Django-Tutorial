@@ -111,10 +111,10 @@ def list_restaurants(request): # 登入後餐廳列表
 
 def register(request): #註冊頁
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserCreationForm(request.POST) # 內建的註冊表單模型UserCreationForm
         if form.is_valid():
             user = form.save()
             return HttpResponseRedirect('/accounts/login/')
     else:
         form = UserCreationForm()
-    return render(request, 'register.html', locals())
+    return render(request, 'registration/register.html', locals())
