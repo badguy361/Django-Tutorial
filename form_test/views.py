@@ -63,10 +63,17 @@ def comment(request, id):
         r = Restaurant.objects.get(id=id)
     else:
         return HttpResponseRedirect("/get_menu/")
+    errors = []
     if request.POST:
         visitor = request.POST['visitor']
         content = request.POST['content']
         email = request.POST['email']
         date_time = timezone.localtime(timezone.now()) # 擷取現在時間
-        Comment.objects.create(visitor=visitor, email=email, content=content, date_time=date_time, restaurant=r)
+        if any(not request.POST[k] for k in request.POST): # 驗證資料是否合格式及報錯訊息
+            errors.append('* 有空白欄位，請不要留空')
+        if '@' not in email:
+            errors.append('* email格式不正確，請重新輸入')
+        if not errors:
+            Comment.objects.create(visitor=visitor, email=email, content=content, date_time=date_time, restaurant=r)
+            visitor, content, email = ('', '', '')
     return render(request, 'comments.html', locals())
