@@ -4,6 +4,7 @@ from django.template.loader import get_template
 from django.shortcuts import render
 from form_test.models import Restaurant, Food, Comment
 from django.utils import timezone
+from form_test.forms import CommentForm
 
 def here(request):
     return HttpResponse('Mom, I am here!')
@@ -65,6 +66,7 @@ def comment(request, id):
         return HttpResponseRedirect("/get_menu/")
     errors = []
     if request.POST:
+        # --------- 內建表單建立方法 ----------# 
         visitor = request.POST['visitor']
         content = request.POST['content']
         email = request.POST['email']
@@ -73,7 +75,11 @@ def comment(request, id):
             errors.append('* 有空白欄位，請不要留空')
         if '@' not in email:
             errors.append('* email格式不正確，請重新輸入')
-        if not errors:
+        if not errors: # 沒問題才進資料庫
             Comment.objects.create(visitor=visitor, email=email, content=content, date_time=date_time, restaurant=r)
             visitor, content, email = ('', '', '')
+        
+    # --------- 外插表單建立方法 ----------# 
+    f = CommentForm(initial={'content': '我沒意見'})
+    
     return render(request, 'comments.html', locals())
