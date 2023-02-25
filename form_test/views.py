@@ -6,6 +6,7 @@ from form_test.models import Restaurant, Food, Comment
 from django.utils import timezone
 from form_test.forms import CommentForm
 from django.contrib import auth
+from django.contrib.auth.forms import UserCreationForm
 
 def here(request):
     return HttpResponse('Mom, I am here!')
@@ -56,11 +57,11 @@ def welcome(request): # get test
     else:
         return render(request, 'welcome.html', locals())
     
-def get_menu(request,id):
+def get_menu(request,id): # 資料庫連結
     foods = Food.objects.get(id=id)
     return render(request, 'get_menu.html', locals())
 
-def comment(request, id):
+def comment(request, id): # 留言頁
     if id:
         r = Restaurant.objects.get(id=id)
     else:
@@ -85,7 +86,7 @@ def comment(request, id):
     
     return render(request, 'comments.html', locals())
 
-def login(request):
+def login(request): # 登入頁(實作登入認證)
     if request.user.is_authenticated:
         return HttpResponseRedirect('/index/')
     username = request.POST.get('username', '')
@@ -97,9 +98,23 @@ def login(request):
     else:
         return render(request, 'registration/login.html', locals())
     
-def logout(request):
+def logout(request): # 登出頁(實作登出認證)
     auth.logout(request)
     return HttpResponseRedirect('/index/')
 
-def index(request):
+def index(request): # 登入後導向頁
     return render(request, 'registration/logged_out.html')
+
+def list_restaurants(request): # 登入後餐廳列表
+    restaurants = Restaurant.objects.all()
+    return render(request,'menu_db.html', locals())
+
+def register(request): #註冊頁
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            return HttpResponseRedirect('/accounts/login/')
+    else:
+        form = UserCreationForm()
+    return render(request, 'register.html', locals())
