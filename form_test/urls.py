@@ -29,7 +29,8 @@ urlpatterns = [
     path('welcome/', welcome),
     path('get_menu/', get_menu),
     re_path(r'get_menu/(\d{1,5})', get_menu),
-    re_path(r'comment/(\d{1,5})', comment),
+    re_path(r'comment/(?P<id>\d{1,5})', comment), # ?P<關鍵字>要擷取的參數可以從URL中將要擷取的參數以關鍵字的方式取出
+                                                # 例如/comment/1會將'1'給id
 
     # 實作內建登入認證
     path('index/', index),
