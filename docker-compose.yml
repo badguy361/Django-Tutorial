@@ -1,6 +1,6 @@
 version: '3'
 services:
-    Django-Tutorial:
+    django-tutorial:
       build: ./
       restart: always
       command: python manage.py runserver 0.0.0.0:8000
