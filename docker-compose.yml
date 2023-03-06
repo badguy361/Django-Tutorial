@@ -1,13 +1,13 @@
 version: '3'
 services:
-    form_test:
+    Django-Tutorial:
       build: ./
       restart: always
       command: python manage.py runserver 0.0.0.0:8000
       ports:
         - "8002:8000"
       volumes:
-        - /home/azureuser/form_test:/storage
+        - /home/azureuser/Django-Tutorial:/storage
 
     jenkins:
           image: jenkins/jenkins:lts-jdk11
