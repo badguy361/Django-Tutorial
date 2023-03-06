@@ -1,9 +1,9 @@
 version: '3'
 services:
     django-tutorial:
-      build: /
+      image: django-tutorial 
       restart: always
-      command: python /home/azureuser/Django-Tutorial/manage.py runserver 0.0.0.0:8000
+      command: python3 /storage/manage.py runserver 0.0.0.0:8000
       ports:
         - "8002:8000"
       volumes:
