@@ -3,7 +3,7 @@ services:
     django-tutorial:
       build: ./
       restart: always
-      command: python manage.py runserver 0.0.0.0:8000
+      command: python /home/azureuser/Django-Tutorial/manage.py runserver 0.0.0.0:8000
       ports:
         - "8002:8000"
       volumes:
