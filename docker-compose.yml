@@ -1,7 +1,7 @@
 version: '3'
 services:
     django-tutorial:
-      build: ./
+      build: /
       restart: always
       command: python /home/azureuser/Django-Tutorial/manage.py runserver 0.0.0.0:8000
       ports:
