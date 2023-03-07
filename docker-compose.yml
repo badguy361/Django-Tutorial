@@ -10,7 +10,7 @@ services:
         - "8002:8000"
       volumes:
         - /home/azureuser/Django-Tutorial:/storage
-
+ 
     jenkins:
           image: jenkins/jenkins:lts-jdk11
           restart: always
