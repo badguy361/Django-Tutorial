@@ -3,4 +3,4 @@ RUN mkdir /storage
 WORKDIR /storage
 COPY . /storage/
 RUN pip install -r requirements.txt
-CMD ["/bin/sh"]
+CMD ["python manage.py runserver 0.0.0.0:8080"]
