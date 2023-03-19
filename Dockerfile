@@ -3,4 +3,4 @@ RUN mkdir /storage
 WORKDIR /storage
 COPY . /storage/
 RUN pip install -r requirements.txt
-CMD python manage.py runserver 0.0.0.0:8080
+CMD gunicorn --bind 0.0.0.0:8081 form_test.wsgi
