@@ -1,25 +1,17 @@
-version: '3'
+version: "3"
+
 services:
-    django-tutorial:
-      image: django-tutorial 
-      restart: always
-      command: python3 /storage/manage.py runserver 0.0.0.0:8000
-      stdin_open: true
-      tty: true
-      ports:
-        - "8002:8000"
-      volumes:
-        - /home/azureuser/Django-Tutorial:/storage
- 
-    jenkins:
-          image: jenkins/jenkins:lts-jdk11
-          restart: always
-          ports:
-              - "8081:8080"
-              - "50001:50000"
-          stdin_open: true
-          tty: true
-          volumes:
-              - /home/azureuser/jenkins:/var/jenkins_home
-volumes:
-    pgdata_jenkins_host:
+  web:
+    image: django_gunicorn
+    ports:
+      - "8081:8081"
+
+  nginx:
+    image: nginx:1.21.3-alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - web
+
