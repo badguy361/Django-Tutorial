@@ -7,9 +7,11 @@ from django.utils import timezone
 from form_test.forms import CommentForm
 from django.contrib import auth
 from django.contrib.auth.forms import UserCreationForm
+from urllib.parse import unquote
 
-def here(request):
-    return HttpResponse('Mom, I am here!')
+def here(request,id):
+    id = unquote(id)
+    return HttpResponse(f'{id} Mom, I am here!')
 
 # def add(request, a, b):
 #     s = int(a) + int(b)
